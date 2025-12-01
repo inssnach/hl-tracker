@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <main>
+    <h2>Anmelden</h2>
+    <form method="post">
+      <label>E-Mail
+        <input type="email" name="email" required />
+      </label>
+      <label>Passwort
+        <input type="password" name="password" required />
+      </label>
+      <button type="submit">Login</button>
+    </form>
+    <p>Noch kein Konto? <a href="{{ url_for('register') }}">Jetzt registrieren</a></p>
+  </main>
+{% endblock %}
