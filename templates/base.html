@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dienstplanung</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+  <style>
+    body { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .flash { padding: 0.75rem; border-radius: 6px; margin-bottom: 0.75rem; }
+    .flash.error { background: #fce8e6; color: #7f1d1d; }
+    .flash.success { background: #ecfdf3; color: #064e3b; }
+    .shift-card { border: 1px solid #dcdcdc; padding: 0.8rem; border-radius: 6px; margin-bottom: 0.6rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <strong>Dienstplanung</strong>
+    </div>
+    <nav>
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('dashboard') }}">Übersicht</a>
+        {% if current_user.role == 'admin' %}
+          <a href="{{ url_for('admin_panel') }}">Admin</a>
+        {% endif %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</body>
+</html>

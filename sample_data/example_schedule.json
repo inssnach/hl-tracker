@@ -1,0 +1,14 @@
+{
+  "staff": ["Anna", "Ben", "Carla", "Dieter"],
+  "days": ["Montag", "Dienstag", "Mittwoch", "Donnerstag"],
+  "shifts": ["Frühdienst", "Spätdienst"],
+  "preferences": {
+    "Anna": {"Montag": ["Frühdienst"], "Dienstag": ["Frühdienst"]},
+    "Ben": {"Dienstag": ["Spätdienst"], "Donnerstag": ["Spätdienst"]},
+    "Carla": {"Mittwoch": ["Frühdienst", "Spätdienst"]},
+    "Dieter": {"Montag": ["Spätdienst"], "Donnerstag": ["Frühdienst"]}
+  },
+  "constraints": {
+    "max_shifts_per_staff": 3
+  }
+}

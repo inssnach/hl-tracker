@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+  <main>
+    <h2>Hallo {{ current_user.name }}</h2>
+    <section>
+      <h3>Meine Schichten</h3>
+      {% if my_shifts %}
+        <div class="grid">
+          {% for shift in my_shifts %}
+            <article class="shift-card">
+              <header>{{ shift.date.strftime('%d.%m.%Y') }} · {{ shift.label() }}</header>
+              <form action="{{ url_for('release_shift', shift_id=shift.id) }}" method="post">
+                <button type="submit" class="secondary">Freigeben</button>
+              </form>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>Keine zugewiesenen Schichten.</p>
+      {% endif %}
+    </section>
+
+    <section>
+      <h3>Offene Schichten</h3>
+      {% if open_shifts %}
+        <div class="grid">
+          {% for shift in open_shifts %}
+            <article class="shift-card">
+              <header>{{ shift.date.strftime('%d.%m.%Y') }} · {{ shift.label() }}</header>
+              <form action="{{ url_for('claim_shift', shift_id=shift.id) }}" method="post">
+                <button type="submit">Übernehmen</button>
+              </form>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>Aktuell keine offenen Schichten.</p>
+      {% endif %}
+    </section>
+  </main>
+{% endblock %}
